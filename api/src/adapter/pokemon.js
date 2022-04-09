@@ -44,7 +44,7 @@ async function getApiPokemon() {
 async function getDbPokemon() {
   try {
     let pokemons = await Pokemon.findAll({
-      attributes: ["id", "name"],
+      attributes: ["id", "name","attack"],
       include: {
         model: Type,
         attributes: ["name"],
@@ -57,4 +57,38 @@ async function getDbPokemon() {
   }
 }
 
-module.exports = { getApiPokemon, getDbPokemon };
+async function getApiName(name){
+    try {
+        let {data,status} = await axios(`https://pokeapi.co/api/v2/pokemon/${name}`);
+        if(status === 200){
+            console.log('entre');
+            const {id,name,height,weight,stats,types:typesApi,sprites:{other:{dream_world:{front_default:image}}}} = data;
+            const [lifeApi,attackApi,defenseApi,,,speedApi] = stats;
+            const types = typesApi.map(el=>el.type.name);
+            const {base_stat:life} = lifeApi;
+            const {base_stat:attack} = attackApi;
+            const {base_stat:defense} = defenseApi;
+            const {base_stat:speed} = speedApi;
+            return {id,name,height,weight,life,attack,defense,speed,types,image};
+        }
+        return null;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+async function getDbName(name){
+    try {
+        let pokemon = await Pokemon.findOne({ where: { name: name.toLowerCase() },include: {
+            model: Type,
+            attributes: ["name"],
+            through: { attributes: [] },
+          } })
+          if(pokemon) return pokemon;
+          return null;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+module.exports = { getApiPokemon, getDbPokemon,getApiName,getDbName };
