@@ -5,6 +5,7 @@ const pokemon = new Pokemon();
 
 
 router.route("/").get(pokemon.getPokemon)
+router.get('/:id',pokemon.getPokemonId)
 
 
 module.exports=router;

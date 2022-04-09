@@ -61,7 +61,6 @@ async function getApiName(name){
     try {
         let {data,status} = await axios(`https://pokeapi.co/api/v2/pokemon/${name}`);
         if(status === 200){
-            console.log('entre');
             const {id,name,height,weight,stats,types:typesApi,sprites:{other:{dream_world:{front_default:image}}}} = data;
             const [lifeApi,attackApi,defenseApi,,,speedApi] = stats;
             const types = typesApi.map(el=>el.type.name);
@@ -91,4 +90,37 @@ async function getDbName(name){
     }
 }
 
-module.exports = { getApiPokemon, getDbPokemon,getApiName,getDbName };
+async function getDbId(id){
+    try {
+        let pokemon = await Pokemon.findByPk(id,{ include: {
+            model: Type,
+            attributes: ["name"],
+            through: { attributes: [] },
+          } })
+          if(pokemon) return pokemon;
+          return null;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+async function getApiId(id){
+    try {
+        let {data,status} = await axios(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        if(status === 200){
+            const {id,name,height,weight,stats,types:typesApi,sprites:{other:{dream_world:{front_default:image}}}} = data;
+            const [lifeApi,attackApi,defenseApi,,,speedApi] = stats;
+            const types = typesApi.map(el=>el.type.name);
+            const {base_stat:life} = lifeApi;
+            const {base_stat:attack} = attackApi;
+            const {base_stat:defense} = defenseApi;
+            const {base_stat:speed} = speedApi;
+            return {id,name,height,weight,life,attack,defense,speed,types,image};
+        }
+        return null;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+module.exports = { getApiPokemon, getDbPokemon,getApiName,getDbName,getApiId,getDbId };

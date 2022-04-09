@@ -1,4 +1,4 @@
-const { getApiPokemon, getDbPokemon,getApiName,getDbName } = require("../adapter/pokemon.js");
+const { getApiPokemon, getDbPokemon,getApiName,getDbName,getApiId,getDbId} = require("../adapter/pokemon.js");
 
 class Pokemon {
   async getPokemon(req, res, next) {
@@ -20,6 +20,23 @@ class Pokemon {
       next(error);
     }
   }
+  async getPokemonId(req,res,next) {
+      try {
+        const {id} = req.params;
+        if(/\d\d?/.test(id)){
+          const data = await getApiId(id);
+          if (data) return res.json(data);
+          throw new Error({status:404,message:"no encontrado"});
+        }else{
+          const dataBd = await getDbId(id);
+          if(data) return res.json(dataBd);
+          throw new Error({status:404,message:"no encontrado"});
+        }
+      } catch (error) {
+          next(error);
+      }
+  }
 }
+
 
 module.exports = Pokemon;
