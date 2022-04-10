@@ -1,4 +1,4 @@
-const { getApiPokemon, getDbPokemon,getApiName,getDbName,getApiId,getDbId} = require("../adapter/pokemon.js");
+const { getApiPokemon, getDbPokemon,getApiName,getDbName,getApiId,getDbId, savePokemonDb} = require("../adapter/pokemon.js");
 
 class Pokemon {
   async getPokemon(req, res, next) {
@@ -23,15 +23,26 @@ class Pokemon {
   async getPokemonId(req,res,next) {
       try {
         const {id} = req.params;
-        if(/\d\d?/.test(id)){
+        if(/^\d\d?$/.test(id)){
           const data = await getApiId(id);
           if (data) return res.json(data);
           throw new Error({status:404,message:"no encontrado"});
         }else{
           const dataBd = await getDbId(id);
-          if(data) return res.json(dataBd);
+          if(dataBd) return res.json(dataBd);
           throw new Error({status:404,message:"no encontrado"});
         }
+      } catch (error) {
+          next(error);
+      }
+  }
+
+  async postPokemon(req,res,next) {
+      const {data} = req.body;
+      console.log(req.body);
+      try {
+        if(await savePokemonDb(data)) return res.sendStatus(201);
+        throw new Error('Error al crear');
       } catch (error) {
           next(error);
       }

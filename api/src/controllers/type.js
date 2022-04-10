@@ -11,7 +11,6 @@ class Types {
       if (!types.length) {
         const typesApi = await getTypesApi();
         const data = await saveDbType(typesApi);
-        console.log(data);
         res.status(200).json(data);
       } else {
         res.json(types);

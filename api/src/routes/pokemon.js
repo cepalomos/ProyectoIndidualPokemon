@@ -4,7 +4,7 @@ const Pokemon = require('../controllers/pokemon');
 const pokemon = new Pokemon();
 
 
-router.route("/").get(pokemon.getPokemon)
+router.route("/").get(pokemon.getPokemon).post(pokemon.postPokemon)
 router.get('/:id',pokemon.getPokemonId)
 
 

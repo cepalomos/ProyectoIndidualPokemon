@@ -123,4 +123,14 @@ async function getApiId(id){
     }
 }
 
-module.exports = { getApiPokemon, getDbPokemon,getApiName,getDbName,getApiId,getDbId };
+async function savePokemonDb(data){
+    const [pokemonData,typeData] = data;
+    try {
+    await Pokemon.create(pokemonData).then(pokemon=>pokemon.addType(typeData));
+        return true;
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
+module.exports = { getApiPokemon, getDbPokemon,getApiName,getDbName,getApiId,getDbId,savePokemonDb };
