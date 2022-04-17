@@ -39,7 +39,6 @@ class Pokemon {
 
   async postPokemon(req,res,next) {
       const {data} = req.body;
-      console.log(req.body);
       try {
         if(await savePokemonDb(data)) return res.sendStatus(201);
         throw new Error('Error al crear');
