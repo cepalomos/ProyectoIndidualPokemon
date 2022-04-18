@@ -1,0 +1,16 @@
+.contenedor {
+  width: 90%;
+  position: relative;
+}
+.ingresar {
+  position: absolute;
+  top: 500px;
+  left: 500px;
+  padding: 10px;
+  border-radius: 6px;
+  background-color: aqua;
+}
+.image {
+  position: absolute;
+  height: 100vh;
+}
