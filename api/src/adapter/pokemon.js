@@ -84,7 +84,11 @@ async function getDbName(name){
             attributes: ["name"],
             through: { attributes: [] },
           } })
-          if(pokemon) return pokemon;
+          if(pokemon) {
+            const {id,name,life,attack,defense,speed,weight,height,types:typesIni} = pokemon;
+            const types = typesIni.map(type=>type.name);
+            return ({id,name,life,attack,defense,speed,weight,height,types});
+          };
           return null;
     } catch (error) {
         throw new Error(error);
