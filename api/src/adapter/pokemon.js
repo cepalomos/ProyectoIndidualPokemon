@@ -51,6 +51,7 @@ async function getDbPokemon() {
         through: { attributes: [] },
       },
     });
+    pokemons = pokemons.map(({id,name,attack,types})=>({id,name,attack,types: types.map(typo=>typo.name)}));
     return pokemons;
   } catch (error) {
     throw new Error(error);
