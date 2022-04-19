@@ -19,6 +19,7 @@ async function getApiPokemon() {
                 data: {
                   id,
                   name,
+                  stats,
                   types: typesApi,
                   sprites: {
                     other: {
@@ -27,8 +28,10 @@ async function getApiPokemon() {
                   },
                 },
               }) => {
+                const [,attackApi] = stats;
+                const {base_stat:attack} = attackApi;
                 const types = typesApi.map((el) => el.type.name);
-                resolve({ id, name, types, imagen });
+                resolve({ id, name, types, imagen,attack });
               }
             )
             .catch((error) => reject(error));
@@ -73,7 +76,7 @@ async function getApiName(name){
         }
         return null;
     } catch (error) {
-        throw new Error(error);
+        throw new Error({status:404,message:"no hay ningun pokemon"});
     }
 }
 

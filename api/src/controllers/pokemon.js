@@ -16,8 +16,7 @@ class Pokemon {
       let pokemons = [...pokemonsApi, ...pokemonsDb];
       res.status(200).json(pokemons);
     } catch (error) {
-        console.error(error.status);
-      next(error);
+      next({status:404,message:"no encontrado"});
     }
   }
   async getPokemonId(req,res,next) {

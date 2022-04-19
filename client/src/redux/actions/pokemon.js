@@ -18,8 +18,8 @@ const peticionPokemon = (url) => {
     dispatch(pokemon_request());
     axios
       .get(url)
-      .then((res) => {
-        dispatch(pokemon_success(res.data));
+      .then(({data}) => {
+        dispatch(pokemon_success(data));
       })
       .catch((error) => {
         dispatch(pokemon_failure(error));

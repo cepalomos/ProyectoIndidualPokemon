@@ -1,4 +1,4 @@
-import {POKEMON_FAILURE,POKEMON_SUCCESS,POKEMON_REQUEST} from '../actions/pokemons.js';
+import {POKEMON_FAILURE,POKEMON_SUCCESS,POKEMON_REQUEST} from '../actions/pokemon.js';
 
 const initialState = {
     loading: false,
@@ -6,7 +6,7 @@ const initialState = {
     error:'',
 }
 
-const recetasUrl = (state = initialState, action) =>{
+const pokemonUrl = (state = initialState, action) =>{
     switch(action.type){
         case POKEMON_REQUEST:
             return {
@@ -31,4 +31,4 @@ const recetasUrl = (state = initialState, action) =>{
         default: return state;
     }
 }
-export default recetasUrl
+export default pokemonUrl
