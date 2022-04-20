@@ -65,14 +65,14 @@ async function getApiName(name){
     try {
         let {data,status} = await axios(`https://pokeapi.co/api/v2/pokemon/${name}`);
         if(status === 200){
-            const {id,name,height,weight,stats,types:typesApi,sprites:{other:{dream_world:{front_default:image}}}} = data;
+            const {id,name,height,weight,stats,types:typesApi,sprites:{other:{dream_world:{front_default:imagen}}}} = data;
             const [lifeApi,attackApi,defenseApi,,,speedApi] = stats;
             const types = typesApi.map(el=>el.type.name);
             const {base_stat:life} = lifeApi;
             const {base_stat:attack} = attackApi;
             const {base_stat:defense} = defenseApi;
             const {base_stat:speed} = speedApi;
-            return {id,name,height,weight,life,attack,defense,speed,types,image};
+            return [{id,name,height,weight,life,attack,defense,speed,types,imagen}];
         }
         return null;
     } catch (error) {
