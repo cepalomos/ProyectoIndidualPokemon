@@ -1,6 +1,7 @@
 .contenedor {
-  width: 90%;
-  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 .ingresar {
   position: absolute;
@@ -12,5 +13,4 @@
 }
 .image {
   position: absolute;
-  height: 100vh;
 }

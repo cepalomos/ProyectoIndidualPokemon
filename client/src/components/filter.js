@@ -6,6 +6,7 @@ export default function Filter({options,selectOption}) {
         <select onChange={({target:{value}})=>selectOption(value)}>
             {options.length!==0&&options.map(({id,name})=>(<option key={id} value={name}>{name}</option>))}
         </select>
+        
     </>
   )
 }
