@@ -1,7 +1,8 @@
 import { useState } from "react";
 import "../css/search.css";
 import { useDispatch} from "react-redux";
-import { peticionPokemon } from "../redux/actions/pokemon.js";
+import { peticionPokemon, pokemon_pagination} from "../redux/actions/pokemon.js";
+import { Link } from "react-router-dom";
 
 export default function Search() {
   const [pokemon, setPokemon] = useState("");
@@ -10,6 +11,7 @@ export default function Search() {
   const handlerClick = (e) => {
     e.preventDefault();
     dispatch(peticionPokemon(`http://localhost:3001/pokemons?name=${pokemon}`));
+    dispatch(pokemon_pagination(1,1));
   };
   return (
     <div className="search_container">

@@ -16,9 +16,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigator></Navigator>}>
             <Route path="home" element={<Home></Home>} />
-            <Route path="pokemon/:id" element={<DetailPokemon />} />
             <Route path="create" element={<Form />} />
           </Route>
+            <Route path="/pokemon/:id" element={<DetailPokemon />} />
           <Route path="*" element={<Error />}></Route>
         </Routes>
       )}

@@ -7,16 +7,16 @@ import Pagination from "./pagination.js";
 import Pokemon from "./pokemon.js";
 
 export default function Home() {
-  const { loading, pokemon, error,pokemonPage,numberPages } = useSelector((state) => state);
+  const { loading, pokemon, error,pokemonPage,numberPages,currentPage } = useSelector((state) => state);
   const dispatch = useDispatch();
-  let page = 1;
+  let page = currentPage;
   useEffect(() => {
     dispatch(peticionPokemon("http://localhost:3001/pokemons"));
   }, []);
   useEffect(()=>{
     dispatch(pokemon_pagination(pokemon.length,page));
   },[pokemon])
-  function asincrona(number,e){
+  function buttonPagination(number,e){
     e.preventDefault();
     page = number;
     dispatch(pokemon_pagination(pokemon.length,page));
@@ -39,8 +39,8 @@ export default function Home() {
           ))}
         </ul>
       )}
-      {error.length > 0 && <Error />}
-      {numberPages.length!==0&&<Pagination pages={numberPages} currentPage={asincrona}/>}
+      {error.length > 0 && !loading && <Error />}
+      {!loading && error.length===0 && numberPages.length!==0&&<Pagination pages={numberPages} currentPage={buttonPagination}/>}
     </main>
   );
 }
