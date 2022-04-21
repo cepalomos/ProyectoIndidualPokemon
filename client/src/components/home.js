@@ -5,6 +5,7 @@ import Error from "./error.js";
 import Loading from "./loading.js";
 import Pagination from "./pagination.js";
 import Pokemon from "./pokemon.js";
+import '../css/home.css';
 
 export default function Home() {
   const { loading, pokemon, error,pokemonPage,numberPages,currentPage } = useSelector((state) => state);
@@ -12,7 +13,7 @@ export default function Home() {
   let page = currentPage;
   useEffect(() => {
     dispatch(peticionPokemon("http://localhost:3001/pokemons"));
-  }, []);
+  },[]);
   useEffect(()=>{
     dispatch(pokemon_pagination(pokemon.length,page));
   },[pokemon])
@@ -23,9 +24,9 @@ export default function Home() {
   }
   return (
     <main className="home_contenedor">
-      {loading && <Loading />}
+      {loading && <Loading className="home_loading"/>}
       {!loading && error.length===0 &&pokemonPage.length !== 0 && (
-        <ul>
+        <ul className="home_list">
           {pokemonPage.map((poke) => (
             <li key={poke.id}>
               <Pokemon
@@ -39,8 +40,8 @@ export default function Home() {
           ))}
         </ul>
       )}
-      {error.length > 0 && !loading && <Error />}
-      {!loading && error.length===0 && numberPages.length!==0&&<Pagination pages={numberPages} currentPage={buttonPagination}/>}
+      {error.length > 0 && !loading && <Error className="home_error"/>}
+      {!loading && error.length===0 && numberPages.length!==0&&<Pagination className="home_pagination" pages={numberPages} currentPage={buttonPagination}/>}
     </main>
   );
 }

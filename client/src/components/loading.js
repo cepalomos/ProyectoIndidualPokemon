@@ -1,7 +1,16 @@
 import React from 'react'
+import '../css/loading.css'
 
 export default function Loading() {
   return (
-    <div>loading ...</div>
+    <div className="spinner">
+    <span>L</span>
+    <span>O</span>
+    <span>A</span>
+    <span>D</span>
+    <span>I</span>
+    <span>N</span>
+    <span>G</span>
+  </div>
   )
 }

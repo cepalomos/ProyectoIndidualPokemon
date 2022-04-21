@@ -1,10 +1,20 @@
 .contenedor_principal{
     width: 90%;
-    margin: 0 auto;
+    margin: 10px auto;
     display: flex;
     justify-content: space-around;
     align-items: center;
     background-color: #348572;
     padding: 10px;
-    box-shadow: 0 3px 1px 0px black;
+    box-shadow: 2px 2px 1px 0px black;
+}
+.navigator_button{
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid blue;
+    background-color: #2FCCA7;
+}
+.navigator_button:hover{
+    background: black;
+    color: beige;
 }

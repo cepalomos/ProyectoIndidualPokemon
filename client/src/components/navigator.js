@@ -22,8 +22,8 @@ export default function Navigator() {
   return (
     <>
     <div className='contenedor_principal'>
-      <Link to='/create'><button >Crear Pokemon</button></Link>
-      <Link to='/home'><button >Home</button></Link>
+      <Link to='/create'><button className='navigator_button'>Crear Pokemon</button></Link>
+      <Link to='/home'><button className='navigator_button'>Home</button></Link>
       <Order order={order}/>
       <Filter options={types} selectOption={filter} />
       <Search />

@@ -2,7 +2,6 @@ import { useState } from "react";
 import "../css/search.css";
 import { useDispatch} from "react-redux";
 import { peticionPokemon, pokemon_pagination} from "../redux/actions/pokemon.js";
-import { Link } from "react-router-dom";
 
 export default function Search() {
   const [pokemon, setPokemon] = useState("");

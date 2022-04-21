@@ -82,6 +82,8 @@ const pokemon_order = (option) => {
         return dispatch(pokemon_sdes());
       case "DES":
         return dispatch(pokemon_des());
+      default:
+        dispatch(pokemon_asc());
     }
   };
 };
