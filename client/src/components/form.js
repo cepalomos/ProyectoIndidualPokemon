@@ -14,8 +14,26 @@ export default function Form() {
   useEffect(()=>{
     validation(input,setError,error);
   },[input]);
+  async function hadleSumit(e) {
+    e.preventDefault();
+    const {nombre:name,vida:life,fuerza:attack,defensa:defense,velocidad:speed,altura:height,peso:weight} = input;
+    const pokemon={data:[{name,life,attack,defense,speed,height,weight},typeForm]}
+    try {
+      let pokemonCreate = await fetch("http://localhost:3001/pokemons", {
+      method: 'POST',
+      body: JSON.stringify(pokemon),
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    }).then(res => res.json());
+    console.log(pokemonCreate);
+    } catch (error) {
+      setError(error)
+    }
+    
+  }
   return (
-    <form className='form_contenedor' method='post' action=''>
+    <form className='form_contenedor' onSubmit={(e)=>hadleSumit(e)}>
       <legend className='form_titulo'>Crear Pokemon</legend>
       <label className='form_label' htmlFor='nombre'>Nombre</label>
       <input className='form_input' id='nombre' type="text" onChange={({target:{value}})=>setInput({...input,nombre:value})} value={input.nombre}></input>
@@ -40,7 +58,7 @@ export default function Form() {
       <p className='error_defensa'>{error?.peso}</p>
       <select className='form_select' onChange={({target:{value}})=>{
         if(typeForm.length<=1&&!typeForm.includes(value))
-        setTypeForm([...typeForm,value])}}>
+        setTypeForm([...typeForm,parseInt(value)])}}>
         <option key={0}>--Seleccione typo max 2--</option>
         {type.length!==0&&(type.map(({id,name})=><option key={id} value={id}>{name}</option>))}
       </select>

@@ -11,7 +11,6 @@ export default function DetailPokemon() {
       .then((res) => res.json())
       .then((json) => {
         setPokemon(json);
-        console.log(json);
       })
       .catch((error) => {
         setError(error);
